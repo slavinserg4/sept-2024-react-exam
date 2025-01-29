@@ -1,16 +1,16 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUserWithTokens} from "../../../models/IUserWithTokens.ts";
-import {loginUser} from "../../../services/api.sercive.login.ts";
-import {userSliceActions} from "../userSlice/userSlice.ts";
-import {recipeSliceActions} from "../recipeSlice/recipeSlice.ts";
+import {loginUser} from "../../../services/api.service.users.ts";
 
 
 type LoginSliceType = {
-    user:IUserWithTokens|null
+    user:IUserWithTokens|null,
+    login:boolean
 }
 
 const loginInitState: LoginSliceType = {
     user: null,
+    login:false
 }
 
 type userLoginType = {
@@ -20,11 +20,7 @@ type userLoginType = {
 
 export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({username, password}:userLoginType,thunkAPI) => {
     try {
-        const loggedInUser = await loginUser({ username, password });
-        await thunkAPI.dispatch(userSliceActions.loadUsers(true));
-        await thunkAPI.dispatch(recipeSliceActions.loadRecipes(true));
-        thunkAPI.dispatch(userSliceActions.setUserLogin());
-
+        const loggedInUser = await loginUser({username, password});
         return thunkAPI.fulfillWithValue(loggedInUser);
     } catch (e: unknown) {
         if (e instanceof Error) {
@@ -43,6 +39,7 @@ export const loginSlice = createSlice({
         builder
             .addCase(userLogin.fulfilled, (state, action: PayloadAction<IUserWithTokens>) => {
                 state.user = action.payload;
+                state.login=true
 
             })
             .addCase(userLogin.rejected, (state, action)=>{
