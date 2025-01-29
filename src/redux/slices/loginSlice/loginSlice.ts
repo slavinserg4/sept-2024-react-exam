@@ -5,12 +5,12 @@ import {loginUser} from "../../../services/api.service.users.ts";
 
 type LoginSliceType = {
     user:IUserWithTokens|null,
-    login:boolean
+    login:boolean,
 }
 
 const loginInitState: LoginSliceType = {
     user: null,
-    login:false
+    login:false,
 }
 
 type userLoginType = {

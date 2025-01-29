@@ -1,11 +1,12 @@
 import {IRecipe} from "../../../models/IRecipe.ts";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getRecipes} from "../../../services/api.service.recipes.ts";
 import {IRecipeBaseResponseModel} from "../../../models/IRecipeBaseResponseModel.ts";
+import {getRecipe, getRecipes} from "../../../services/api.service.users.ts";
 
 
 type RecipeSliceType = {
     recipes:IRecipe[];
+    recipe:IRecipe|null;
     total: number;
     skip: number;
     limit: number;
@@ -13,6 +14,7 @@ type RecipeSliceType = {
 
 const recipeInitState: RecipeSliceType = {
     recipes:[],
+    recipe:null,
     total: 0,
     skip: 0,
     limit: 10,
@@ -22,6 +24,14 @@ export const loadRecipes = createAsyncThunk('recipeSlice/loadRecipes', async ({ 
     try {
         const recipesFromAPI = await getRecipes(skip, limit)
         return thunkAPI.fulfillWithValue(recipesFromAPI);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e);
+    }
+});
+export const loadRecipe = createAsyncThunk('recipeSlice/loadRecipe', async (id:number, thunkAPI) => {
+    try {
+        const recipeFromAPI = await getRecipe(id)
+        return thunkAPI.fulfillWithValue(recipeFromAPI);
     } catch (e) {
         return thunkAPI.rejectWithValue(e);
     }
@@ -44,7 +54,14 @@ export const recipeSlice = createSlice({
                 console.log(state)
                 console.log(action)
             })
+            .addCase(loadRecipe.fulfilled, (state, action:PayloadAction<IRecipe>)=>{
+                state.recipe=action.payload
+            })
+            .addCase(loadRecipe.rejected, (state, action) => {
+                console.log(state);
+                console.log(action);
+            })
 });
 
 
-export const recipeSliceActions = {...recipeSlice.actions, loadRecipes}
+export const recipeSliceActions = {...recipeSlice.actions, loadRecipes, loadRecipe};
