@@ -20,9 +20,9 @@ const userInitState: UserSliceType = {
     limit: 10,
 }
 
-export const loadUsers = createAsyncThunk('userSlice/loadUsers', async ({ skip, limit }: { skip: number; limit: number }, thunkAPI) => {
+export const loadUsers = createAsyncThunk('userSlice/loadUsers', async ({ skip, limit, query }: { skip: number; limit: number,query?:string }, thunkAPI) => {
     try {
-        const usersFromAPI = await getUsers(skip, limit);
+        const usersFromAPI = await getUsers(skip, limit,query);
         return thunkAPI.fulfillWithValue(usersFromAPI);
     } catch (e) {
         return thunkAPI.rejectWithValue(e);

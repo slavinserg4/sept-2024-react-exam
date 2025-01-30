@@ -28,9 +28,13 @@ axiosInstance.interceptors.request.use((request)=>{
     return request;
 })
 
-export const getRecipes = async (skip = 0, limit = 10): Promise<IRecipeBaseResponseModel> => {
-    const {data} = await axiosInstance.get<IRecipeBaseResponseModel>(`/recipes?skip=${skip}&limit=${limit}`);
-    return data
+export const getRecipes = async (skip = 0, limit = 10, query?:string): Promise<IRecipeBaseResponseModel> => {
+    const url = query
+        ? `/recipes/search?q=${query}&skip=${skip}&limit=${limit}`
+        : `/recipes?skip=${skip}&limit=${limit}`;
+
+    const { data } = await axiosInstance.get<IRecipeBaseResponseModel>(url);
+    return data;
 }
 export const getRecipe = async (id:number): Promise<IRecipe> => {
     const { data } = await axiosInstance.get<IRecipe>(`/recipes/${id}`);
@@ -43,8 +47,12 @@ export const loginUser = async ({username, password}:ILoginUserType): Promise<IU
     return response.data
 }
 
-export const getUsers = async (skip = 0, limit = 10): Promise<IUserBaseResponseModel> => {
-    const { data } = await axiosInstance.get<IUserBaseResponseModel>(`/users?skip=${skip}&limit=${limit}`);
+export const getUsers = async (skip = 0, limit = 10,query?:string): Promise<IUserBaseResponseModel> => {
+    const url = query
+        ? `/users/search?q=${query}&skip=${skip}&limit=${limit}`
+        : `/users?skip=${skip}&limit=${limit}`;
+
+    const { data } = await axiosInstance.get<IUserBaseResponseModel>(url);
     return data;
 };
 export const getUser = async (id:number): Promise<IUser> => {

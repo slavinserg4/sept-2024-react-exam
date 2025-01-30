@@ -20,9 +20,9 @@ const recipeInitState: RecipeSliceType = {
     limit: 10,
 }
 
-export const loadRecipes = createAsyncThunk('recipeSlice/loadRecipes', async ({ skip, limit }: { skip: number; limit: number }, thunkAPI) => {
+export const loadRecipes = createAsyncThunk('recipeSlice/loadRecipes', async ({ skip, limit, query }: { skip: number; limit: number, query?:string }, thunkAPI) => {
     try {
-        const recipesFromAPI = await getRecipes(skip, limit)
+        const recipesFromAPI = await getRecipes(skip, limit,query)
         return thunkAPI.fulfillWithValue(recipesFromAPI);
     } catch (e) {
         return thunkAPI.rejectWithValue(e);

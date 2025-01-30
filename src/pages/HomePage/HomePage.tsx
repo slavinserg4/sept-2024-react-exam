@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const HomePage = () => {
+const MainPage = () => {
     return (
         <div>
             You need to log in, <Link to='/login'> click here for login</Link>
@@ -8,4 +8,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default MainPage;
