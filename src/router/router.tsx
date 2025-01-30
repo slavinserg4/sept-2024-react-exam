@@ -5,6 +5,7 @@ import UsersPage from "../pages/UsersPage/UsersPage.tsx";
 import RecipesPage from "../pages/RecipesPage/RecipesPage.tsx";
 import LoginPage from "../pages/LoginPage/LoginPage.tsx";
 import UserDetailsPage from "../pages/UserDetailsPage/UserDetailsPage.tsx";
+import RecipeDetailsPage from "../pages/RecipeDetailsPage/RecipeDetailsPage.tsx";
 
 export const router = createBrowserRouter([
     { path: '/',  element:<MainLayout/>, children:[
@@ -22,6 +23,9 @@ export const router = createBrowserRouter([
             },
             {
                 path:'userdetails/:userId', element:<UserDetailsPage/>
+            },
+            {
+                path:'recipedetails/:recipeId', element:<RecipeDetailsPage/>
             }
             ]}
 ])
