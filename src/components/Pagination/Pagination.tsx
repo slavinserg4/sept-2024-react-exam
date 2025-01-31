@@ -22,7 +22,10 @@ const Pagination = ({ total, limit }: PaginationProps) => {
             <button disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)}>
                 Prev
             </button>
-            <span> Page {currentPage} of {totalPages} </span>
+            <span>
+                {" "}
+                Page {currentPage} of {totalPages}{" "}
+            </span>
             <button disabled={currentPage === totalPages} onClick={() => goToPage(currentPage + 1)}>
                 Next
             </button>

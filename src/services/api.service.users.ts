@@ -27,7 +27,15 @@ axiosInstance.interceptors.request.use((request)=>{
     }
     return request;
 })
+//Login user
+export const loginUser = async ({username, password}:ILoginUserType): Promise<IUserWithTokens> => {
+    const response = await axiosInstance.post<IUserWithTokens>('/login', {username, password});
+    localStorage.setItem('user', JSON.stringify(response.data));
+    return response.data
+}
 
+
+//Recipes
 export const getRecipes = async (skip = 0, limit = 10, query?:string): Promise<IRecipeBaseResponseModel> => {
     const url = query
         ? `/recipes/search?q=${query}&skip=${skip}&limit=${limit}`
@@ -36,17 +44,23 @@ export const getRecipes = async (skip = 0, limit = 10, query?:string): Promise<I
     const { data } = await axiosInstance.get<IRecipeBaseResponseModel>(url);
     return data;
 }
+
 export const getRecipe = async (id:number): Promise<IRecipe> => {
     const { data } = await axiosInstance.get<IRecipe>(`/recipes/${id}`);
     return data;
 };
+export const getRecipeByTag = async (tag: string, skip: number, limit: number): Promise<IRecipeBaseResponseModel> => {
+    const { data } = await axiosInstance.get<IRecipeBaseResponseModel>(`/recipes/tag/${tag}`, {
+        params: {
+            skip: skip,
+            limit: limit
+        }
+    });
+    return data;
+};
 
-export const loginUser = async ({username, password}:ILoginUserType): Promise<IUserWithTokens> => {
-    const response = await axiosInstance.post<IUserWithTokens>('/login', {username, password});
-    localStorage.setItem('user', JSON.stringify(response.data));
-    return response.data
-}
 
+//Users
 export const getUsers = async (skip = 0, limit = 10,query?:string): Promise<IUserBaseResponseModel> => {
     const url = query
         ? `/users/search?q=${query}&skip=${skip}&limit=${limit}`

@@ -19,7 +19,7 @@ const UserRecipes: FC<Props> = ({ userId }) => {
     useEffect(() => {
         const fetchRecipes = async () => {
             let skip = 0;
-            const limit = 30; // API повертає максимум 30 за раз
+            const limit = 30;
             let allLoadedRecipes: IRecipe[] = [];
 
             try {
@@ -38,7 +38,7 @@ const UserRecipes: FC<Props> = ({ userId }) => {
             }
         };
 
-        void fetchRecipes(); // Викликаємо функцію, щоб уникнути помилки з Promise
+        void fetchRecipes();
     }, [dispatch, total]);
 
     const userRecipes = loadedAll ? mergeRecipesWithUsers(recipes, userId) : [];

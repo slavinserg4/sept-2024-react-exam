@@ -1,12 +1,18 @@
-import {FC} from "react";
+import { FC } from "react";
+import {Link} from "react-router-dom";
 
 type RecipeTagsPropType = {
-    tag:string,
+    tag: string;
+    disabled: boolean;
 }
-const RecipeTags:FC<RecipeTagsPropType> = ({tag}) => {
+
+const RecipeTags: FC<RecipeTagsPropType> = ({ tag,disabled}) => {
+
     return (
         <div>
-            {tag}
+            {!disabled? <Link to={`/recipesbytag/?tag=${tag}&skip=0&limit=10`}>{tag}</Link> : tag}
+
+
         </div>
     );
 };

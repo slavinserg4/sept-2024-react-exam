@@ -1,7 +1,9 @@
+import {Link} from "react-router-dom";
+
 const LoginMenu = () => {
     return (
         <div>
-            login menu
+            <Link to={"/login"}>to login menu</Link>
         </div>
     );
 };

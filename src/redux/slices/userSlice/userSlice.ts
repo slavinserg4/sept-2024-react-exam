@@ -41,7 +41,17 @@ export const loadUser = createAsyncThunk('userSlice/loadUser', async (id:number,
 export const userSlice = createSlice({
     name: 'userSlice',
     initialState: userInitState,
-    reducers: {},
+    reducers: {
+        clearUsers: (state) => {
+            state.users = [];
+            state.total = 0;
+            state.user = null;
+        },
+        resetPagination: (state) => {
+            state.skip = 0;
+            state.limit = 10;
+        },
+    },
     extraReducers: builder =>
         builder
             .addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUserBaseResponseModel>) => {

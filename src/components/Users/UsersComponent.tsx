@@ -1,60 +1,65 @@
+// UsersComponent.tsx
 import { useAppSelector } from "../../redux/hooks/useAppSelector.tsx";
 import { useAppDispatch } from "../../redux/hooks/useAppDispatch.tsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { userSliceActions } from "../../redux/slices/userSlice/userSlice.ts";
 import UserComponent from "../User/UserComponent.tsx";
-import { useSearchParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination.tsx";
-import {IUser} from "../../models/IUser.ts";
+import { IUser } from "../../models/IUser.ts";
+import {useSearchParams} from "react-router-dom";
+import SearchComponent from "../SearchComponent/SearchComponent.tsx";
 
 const UsersComponent = () => {
-    const userSliceState = useAppSelector(state => state.userPart);
+    const userSliceState = useAppSelector((state) => state.userPart);
     const dispatch = useAppDispatch();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "");
-    const [foundUser, setFoundUser] = useState<IUser|null>(null);
+    const [foundUser, setFoundUser] = useState<IUser | null>(null);
     const [isSearching, setIsSearching] = useState(false);
+
 
     const skip = Number(searchParams.get("skip")) || 0;
     const limit = Number(searchParams.get("limit")) || 10;
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            setIsSearching(true);
+    const fetchUsers = useCallback(async (query: string) => {
+        setIsSearching(true);
+        const params = { skip, limit, query };
 
-            if (!searchTerm) {
-                setSearchParams({ skip: skip.toString(), limit: limit.toString() });
-                await dispatch(userSliceActions.loadUsers({ skip, limit }));
+        try {
+            if (!query) {
+                await dispatch(userSliceActions.loadUsers(params));
                 setFoundUser(null);
-            } else if (!isNaN(Number(searchTerm))) {
-                setSearchParams({});
-                try {
-                    const response = await dispatch(userSliceActions.loadUser(Number(searchTerm))).unwrap();
-                    setFoundUser(response);
-                } catch (error) {
-                    console.error("Користувача не знайдено:", error);
-                    setFoundUser(null);
-                }
+            } else if (!isNaN(Number(query))) {
+                const response = await dispatch(userSliceActions.loadUser(Number(query))).unwrap();
+                setFoundUser(response);
             } else {
-                setSearchParams({ query: searchTerm, skip: skip.toString(), limit: limit.toString() });
-                await dispatch(userSliceActions.loadUsers({ skip, limit, query: searchTerm }));
+                await dispatch(userSliceActions.loadUsers(params));
                 setFoundUser(null);
             }
-
+        } catch (error) {
+            console.error("Помилка завантаження даних:", error);
+        } finally {
             setIsSearching(false);
+        }
+    }, [dispatch, skip, limit]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await fetchUsers(searchTerm);
+            } catch (error) {
+                console.error("Помилка при отриманні користувачів:", error);
+            }
         };
 
-        fetchUsers().catch(console.error);
-    }, [searchTerm, skip, limit, dispatch, setSearchParams]);
+        fetchData().catch(console.error);
+    }, [fetchUsers, searchTerm]);
+
+
 
     return (
         <div>
-            <input
-                type="text"
-                placeholder="Введіть ім'я або ID користувача..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Введіть ім'я або ID користувача..." />
 
             {isSearching ? (
                 <p>Завантаження...</p>
