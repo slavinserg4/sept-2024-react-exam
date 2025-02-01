@@ -17,4 +17,5 @@ const RecipeTags: FC<RecipeTagsPropType> = ({ tag}) => {
     );
 };
 
+
 export default RecipeTags;

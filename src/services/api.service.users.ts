@@ -57,7 +57,6 @@ export const getRecipeByTag = async (tag: string, skip: number, limit: number): 
             limit: limit
         }
     });
-    console.log(data)
     return data;
 };
 

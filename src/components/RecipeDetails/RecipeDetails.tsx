@@ -18,8 +18,8 @@ const RecipeDetails = () => {
             Id:{recipe?.id}
             Name:{recipe?.name} <br/>
             UserId:{recipe?.userId}
-            <p>Author: <Link to={`/userdetails/${recipe?.userId}`}>Author</Link> </p>
-            Tags:{recipe?.tags.map((tag)=><RecipeTags tag={tag} />)}
+            <p>Author: <Link key={recipe?.id} to={`/userdetails/${recipe?.userId}`}>Author</Link> </p>
+            Tags:{recipe?.tags.map((tag,index)=><RecipeTags key={tag+index} tag={tag} />)}
         </div>
     );
 };

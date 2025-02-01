@@ -6,9 +6,11 @@ import {loginUser} from "../../../services/api.service.users.ts";
 type LoginSliceType = {
     user:IUserWithTokens|null,
     login:boolean,
+    error:boolean
 }
 
 const loginInitState: LoginSliceType = {
+    error: false,
     user: null,
     login:false,
 }
@@ -38,6 +40,7 @@ export const loginSlice = createSlice({
     reducers: {
         setLoginToFalse: (state) => {
             state.login = false;
+            state.error = false;
         }
     },
     extraReducers: builder =>
@@ -45,11 +48,12 @@ export const loginSlice = createSlice({
             .addCase(userLogin.fulfilled, (state, action: PayloadAction<IUserWithTokens>) => {
                 state.user = action.payload;
                 state.login=true
-
+                state.error=false;
             })
             .addCase(userLogin.rejected, (state, action)=>{
                 console.log(state)
                 console.log(action)
+                state.error=true;
             })
 });
 
