@@ -9,6 +9,7 @@ import {IRecipe} from "../models/IRecipe.ts";
 
 
 type ILoginUserType ={
+    expiresInMins:number;
     username: string;
     password: string;
 }
@@ -28,8 +29,8 @@ axiosInstance.interceptors.request.use((request)=>{
     return request;
 })
 //Login user
-export const loginUser = async ({username, password}:ILoginUserType): Promise<IUserWithTokens> => {
-    const response = await axiosInstance.post<IUserWithTokens>('/login', {username, password});
+export const loginUser = async ({username, password, expiresInMins}:ILoginUserType): Promise<IUserWithTokens> => {
+    const response = await axiosInstance.post<IUserWithTokens>('/login', {username, password, expiresInMins});
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data
 }
@@ -56,6 +57,7 @@ export const getRecipeByTag = async (tag: string, skip: number, limit: number): 
             limit: limit
         }
     });
+    console.log(data)
     return data;
 };
 

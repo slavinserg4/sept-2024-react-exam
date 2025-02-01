@@ -1,4 +1,3 @@
-// UsersComponent.tsx
 import { useAppSelector } from "../../redux/hooks/useAppSelector.tsx";
 import { useAppDispatch } from "../../redux/hooks/useAppDispatch.tsx";
 import { useEffect, useState, useCallback } from "react";
@@ -6,7 +5,7 @@ import { userSliceActions } from "../../redux/slices/userSlice/userSlice.ts";
 import UserComponent from "../User/UserComponent.tsx";
 import Pagination from "../Pagination/Pagination.tsx";
 import { IUser } from "../../models/IUser.ts";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SearchComponent from "../SearchComponent/SearchComponent.tsx";
 
 const UsersComponent = () => {
@@ -17,9 +16,19 @@ const UsersComponent = () => {
     const [foundUser, setFoundUser] = useState<IUser | null>(null);
     const [isSearching, setIsSearching] = useState(false);
 
-
     const skip = Number(searchParams.get("skip")) || 0;
     const limit = Number(searchParams.get("limit")) || 10;
+
+    useEffect(() => {
+        if (!searchTerm) {
+            setFoundUser(null);
+            dispatch(userSliceActions.loadUsers({ skip, limit }));
+        }
+    }, [searchTerm, dispatch, skip, limit]);
+
+    useEffect(() => {
+        setSearchTerm(searchParams.get("query") || "");
+    }, [searchParams]);
 
     const fetchUsers = useCallback(async (query: string) => {
         setIsSearching(true);
@@ -55,8 +64,6 @@ const UsersComponent = () => {
         fetchData().catch(console.error);
     }, [fetchUsers, searchTerm]);
 
-
-
     return (
         <div>
             <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Введіть ім'я або ID користувача..." />
@@ -67,10 +74,16 @@ const UsersComponent = () => {
                 <UserComponent user={foundUser} />
             ) : (
                 <>
-                    {userSliceState.users.map((user) => (
-                        <UserComponent user={user} key={user.id} />
-                    ))}
-                    <Pagination total={userSliceState.total} limit={limit} />
+                    {userSliceState.users.length === 0 ? (
+                        <p>Користувачів не знайдено.</p>
+                    ) : (
+                        <>
+                            {userSliceState.users.map((user) => (
+                                <UserComponent user={user} key={user.id} />
+                            ))}
+                            <Pagination total={userSliceState.total} limit={limit} />
+                        </>
+                    )}
                 </>
             )}
         </div>

@@ -14,8 +14,14 @@ const Pagination = ({ total, limit }: PaginationProps) => {
 
     const goToPage = (page: number) => {
         const newSkip = (page - 1) * limit;
-        setSearchParams({ skip: newSkip.toString(), limit: limit.toString() });
+        setSearchParams((prevParams) => {
+            const newParams = new URLSearchParams(prevParams);
+            newParams.set("skip", newSkip.toString());
+            newParams.set("limit", limit.toString());
+            return newParams;
+        });
     };
+
 
     return (
         <div>

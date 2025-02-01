@@ -6,7 +6,6 @@ import LoginPage from "../pages/LoginPage/LoginPage.tsx";
 import UserDetailsPage from "../pages/UserDetailsPage/UserDetailsPage.tsx";
 import RecipeDetailsPage from "../pages/RecipeDetailsPage/RecipeDetailsPage.tsx";
 import MainPage from "../pages/MainPage/MainPage.tsx";
-import RecipesByTagPage from "../pages/RecipesByTagPage/RecipesByTagPage.tsx";
 
 export const router = createBrowserRouter([
     { path: '/',  element:<MainLayout/>, children:[
@@ -27,9 +26,6 @@ export const router = createBrowserRouter([
             },
             {
                 path:'recipedetails/:recipeId', element:<RecipeDetailsPage/>
-            },
-            {
-                path:'recipesbytag', element:<RecipesByTagPage/>
             }
             ]}
 ])

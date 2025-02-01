@@ -7,7 +7,7 @@ const MainLayout = () => {
     const loginSliceState = useAppSelector(state => state.loginPart)
     return (
         <div>
-            <div className={'Header'}>{loginSliceState.login? <Menu/> : <LoginMenu/>}</div>
+            <div className={'Header'}>{loginSliceState.login ? <Menu/> : <LoginMenu/>}</div>
             <hr/> <br/>
             <Outlet/>
         </div>

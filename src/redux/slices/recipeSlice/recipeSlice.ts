@@ -52,7 +52,11 @@ export const loadRecipe = createAsyncThunk('recipeSlice/loadRecipe', async (id:n
 export const recipeSlice = createSlice({
     name: 'recipeSlice',
     initialState: recipeInitState,
-    reducers: {},
+    reducers: {
+        clearRecipesByTag: (state) => {
+            state.recipesByTag = []
+        }
+    },
     extraReducers: builder =>
         builder
             .addCase(loadRecipes.fulfilled, (state, action: PayloadAction<IRecipeBaseResponseModel>) => {

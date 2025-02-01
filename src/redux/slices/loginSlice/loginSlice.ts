@@ -14,13 +14,14 @@ const loginInitState: LoginSliceType = {
 }
 
 type userLoginType = {
+    expiresInMins:number
     username:string,
     password:string
 }
 
-export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({username, password}:userLoginType,thunkAPI) => {
+export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({username, password,expiresInMins}:userLoginType,thunkAPI) => {
     try {
-        const loggedInUser = await loginUser({username, password});
+        const loggedInUser = await loginUser({username, password,expiresInMins});
         return thunkAPI.fulfillWithValue(loggedInUser);
     } catch (e: unknown) {
         if (e instanceof Error) {
@@ -34,7 +35,11 @@ export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({userna
 export const loginSlice = createSlice({
     name: 'loginSlice',
     initialState: loginInitState,
-    reducers: {},
+    reducers: {
+        setLoginToFalse: (state) => {
+            state.login = false;
+        }
+    },
     extraReducers: builder =>
         builder
             .addCase(userLogin.fulfilled, (state, action: PayloadAction<IUserWithTokens>) => {

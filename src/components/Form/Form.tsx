@@ -8,11 +8,13 @@ interface FormComponentProps {
 }
 
 const Form = () => {
+    const expiresInMins = 30;
     const dispatch = useAppDispatch();
     const { handleSubmit, register } = useForm<FormComponentProps>();
 
     const customHandler = async (formData: FormComponentProps) => {
-        await dispatch(loginSliceActions.userLogin(formData));
+        const params = {...formData, expiresInMins: expiresInMins};
+        await dispatch(loginSliceActions.userLogin(params));
 
     };
 

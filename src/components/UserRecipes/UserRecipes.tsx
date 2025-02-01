@@ -47,13 +47,17 @@ const UserRecipes: FC<Props> = ({ userId }) => {
         <div>
             <h2>Рецепти користувача</h2>
             {loadedAll ? (
-                <ul>
-                    {userRecipes.map(recipe => (
-                        <li key={recipe.id}>
-                            <Link to={`/recipedetails/${recipe.id}`}>{recipe.name}</Link>
-                        </li>
-                    ))}
-                </ul>
+                userRecipes.length > 0 ? (
+                    <ul>
+                        {userRecipes.map(recipe => (
+                            <li key={recipe.id}>
+                                <Link to={`/recipedetails/${recipe.id}`}>{recipe.name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <h3>В цього користувача немає рецептів.</h3>
+                )
             ) : (
                 <p>Завантаження...</p>
             )}

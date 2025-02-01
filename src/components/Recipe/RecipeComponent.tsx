@@ -11,7 +11,7 @@ const RecipeComponent:FC<IRecipeComponentProps> = ({recipe}) => {
     return (
         <div>
             <Link to={`/recipedetails/${recipe.id}`}>{recipe.name}, id:{recipe.id}</Link>
-            {recipe.tags.map((tag)=><RecipeTags tag={tag} disabled={false}/>)}
+            {recipe.tags.map((tag)=><RecipeTags tag={tag} />)}
             <hr/>
             <br/>
 

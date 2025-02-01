@@ -3,14 +3,14 @@ import {Link} from "react-router-dom";
 
 type RecipeTagsPropType = {
     tag: string;
-    disabled: boolean;
+
 }
 
-const RecipeTags: FC<RecipeTagsPropType> = ({ tag,disabled}) => {
+const RecipeTags: FC<RecipeTagsPropType> = ({ tag}) => {
 
     return (
         <div>
-            {!disabled? <Link to={`/recipesbytag/?tag=${tag}&skip=0&limit=10`}>{tag}</Link> : tag}
+             <Link to={`/recipes/?tag=${tag}&skip=0&limit=10`}>{tag}</Link>
 
 
         </div>
