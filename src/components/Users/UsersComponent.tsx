@@ -7,6 +7,7 @@ import Pagination from "../Pagination/Pagination.tsx";
 import { IUser } from "../../models/IUser.ts";
 import { useSearchParams } from "react-router-dom";
 import SearchComponent from "../SearchComponent/SearchComponent.tsx";
+import './StyleForUsersComponent.css'
 
 const UsersComponent = () => {
     const userSliceState = useAppSelector((state) => state.userPart);
@@ -65,17 +66,17 @@ const UsersComponent = () => {
     }, [fetchUsers, searchTerm]);
 
     return (
-        <div>
-            <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Введіть ім'я або ID користувача..." />
+        <div className={'UsersComponent'}>
+            <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Input name or ID..." />
 
             {isSearching ? (
-                <p>Завантаження...</p>
+                <p>Loading...</p>
             ) : foundUser ? (
                 <UserComponent user={foundUser} />
             ) : (
                 <>
                     {userSliceState.users.length === 0 ? (
-                        <p>Користувачів не знайдено.</p>
+                        <p>No users found..</p>
                     ) : (
                         <>
                             {userSliceState.users.map((user) => (

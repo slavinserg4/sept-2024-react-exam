@@ -2,6 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Logo from "../Logo/Logo.tsx";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {loginSliceActions} from "../../redux/slices/loginSlice/loginSlice.ts";
+import './StyleForMenu.css'
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -12,11 +13,11 @@ const Menu = () => {
         navigate("/");
     }
     return (
-        <div>
-            <Link to={'/recipes?query=&skip=0&limit=10'}>Recipes</Link>
-            <Link to={'/users?query=&skip=0&limit=10'} >Users</Link>
+        <div className="Menu">
+            <Link className={'LinkForAllRecipes'} to={'/recipes?query=&skip=0&limit=10'}>All Recipes</Link>
+            <Link className={'LinkForAllUsers'} to={'/users?query=&skip=0&limit=10'} >All Users</Link>
+            <button className={'ButtonForLogOut'} onClick={clickToLogout}>Log out</button>
             <Logo/>
-            <button onClick={clickToLogout}>Log out</button>
         </div>
     );
 };

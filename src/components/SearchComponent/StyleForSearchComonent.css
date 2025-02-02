@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.FormForSearch input{
+    font-family: "Inter", serif;
+    width: 280px;
+    height: 34px;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    padding-left: 37px;
+    color: white;
+    background-color: darkslategrey;
+    margin-bottom: 40px;
+}
+.FormForSearch input:focus{
+    outline: none;
+}
+.FormForSearch input::placeholder{
+    color: white;
+}
+.FormForSearch button{
+    font-family: "Inter", serif;
+    width: 70px;
+    height: 36px;
+    border-radius: 0 10px 10px 0;
+    border: none;
+    background-color: lightslategrey;
+    transition: 300ms;
+}
+.FormForSearch button:hover{
+    background-color: honeydew;
+    transition: 300ms;
+    border: 1px solid grey;
+}

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.recipeDetailsDiv{
+    font-family: "Inter", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: slategrey;
+    border-radius: 10px;
+    width: 590px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+.recipeDetailsDiv p{
+    height: 10px;
+}
+.RecipeImg{
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    margin-left: 270px;
+    margin-bottom: 70px;
+    border-radius: 10px;
+}
+.LinkForRecipeDetails{
+    color: black;
+    margin-top: 13px;
+    margin-bottom: 18px;
+}

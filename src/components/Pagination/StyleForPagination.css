@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.Pagination{
+    font-family: "Inter", serif;
+}
+.ButtonsForPagination{
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: none;
+    transition: 300ms;
+    background-color: lightslategrey;
+}
+.ButtonsForPagination:hover{
+    background-color: darkslategrey;
+    transition: 300ms;
+    color: white;
+
+}

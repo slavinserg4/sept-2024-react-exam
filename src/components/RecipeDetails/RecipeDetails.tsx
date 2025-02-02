@@ -4,6 +4,7 @@ import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import {recipeSliceActions} from "../../redux/slices/recipeSlice/recipeSlice.ts";
 import {useEffect} from "react";
 import RecipeTags from "../RecipeTags/RecipeTags.tsx";
+import './StyleForRecipeDetails.css'
 
 const RecipeDetails = () => {
 
@@ -14,12 +15,17 @@ const RecipeDetails = () => {
         dispatch(recipeSliceActions.loadRecipe(Number(recipeId)));
     }, [dispatch, recipeId]);
     return (
-        <div>
-            Id:{recipe?.id}
-            Name:{recipe?.name} <br/>
-            UserId:{recipe?.userId}
-            <p>Author: <Link key={recipe?.id} to={`/userdetails/${recipe?.userId}`}>Author</Link> </p>
-            Tags:{recipe?.tags.map((tag,index)=><RecipeTags key={tag+index} tag={tag} />)}
+        <div className={'recipeDetailsDiv'}>
+            <img className={'RecipeImg'} src={recipe?.image} alt="recipe image"/>
+            <p>Id: {recipe?.id}</p>
+            <p>Name: {recipe?.name}</p>
+            <p>PrepTimeMinutes: {recipe?.prepTimeMinutes}</p>
+            <p>CookTimeMinutes: {recipe?.cookTimeMinutes}</p>
+            <p>Servings: {recipe?.servings}</p>
+            <p>Difficulty: {recipe?.difficulty}</p>
+            <p>Cuisine: {recipe?.cuisine}</p>
+            <Link className={'LinkForRecipeDetails'} key={recipe?.id} to={`/userdetails/${recipe?.userId}`}>Click to go to the author</Link>
+            Tags:{recipe?.tags.map((tag, index) => <RecipeTags key={tag + index} tag={tag}/>)}
         </div>
     );
 };

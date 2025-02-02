@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.RecipeDetailsPage{
+    font-family: "Inter", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 150px;
+}
+.RecipeDetailsPageButton{
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: none;
+    transition: 300ms;
+    background-color: lightslategrey;
+    font-family: "Inter", serif;
+    margin-bottom: 400px;
+    margin-right: 100px;
+}
+.RecipeDetailsPageButton:hover{
+    background-color: darkslategrey;
+    transition: 300ms;
+    color: white;
+}

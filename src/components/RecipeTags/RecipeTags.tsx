@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {Link} from "react-router-dom";
+import './StyleForRecipeTags.css'
 
 type RecipeTagsPropType = {
     tag: string;
@@ -7,12 +8,9 @@ type RecipeTagsPropType = {
 }
 
 const RecipeTags: FC<RecipeTagsPropType> = ({ tag}) => {
-
     return (
         <div>
-             <Link to={`/recipes/?tag=${tag}&skip=0&limit=10`}>{tag}</Link>
-
-
+             <Link className={'LinkToTag'} to={`/recipes/?tag=${tag}&skip=0&limit=10`}>{tag}</Link>
         </div>
     );
 };

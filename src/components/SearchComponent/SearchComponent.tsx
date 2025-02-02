@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import './StyleForSearchComonent.css'
 interface FormComponentProps {
     value: string;
 }
@@ -17,7 +17,7 @@ const SearchComponent = ({ onSearch, placeholder }: SearchComponentProps) => {
 
     useEffect(() => {
         const query = searchParams.get("query") || "";
-        setValue("value", query); // Заповнюємо поле введення значенням з URL
+        setValue("value", query);
     }, [searchParams, setValue]);
 
     const customHandler = (formData: FormComponentProps) => {
@@ -27,17 +27,17 @@ const SearchComponent = ({ onSearch, placeholder }: SearchComponentProps) => {
     };
 
     useEffect(() => {
-        return () => reset(); // Очищаємо поле при переході на іншу сторінку
+        return () => reset();
     }, [reset]);
 
     return (
-        <form onSubmit={handleSubmit(customHandler)}>
+        <form className={'FormForSearch'} onSubmit={handleSubmit(customHandler)}>
             <input
                 type="text"
                 placeholder={placeholder}
                 {...register("value")}
             />
-            <button type="submit">🔍 Пошук</button>
+            <button type="submit">Search</button>
         </form>
     );
 };

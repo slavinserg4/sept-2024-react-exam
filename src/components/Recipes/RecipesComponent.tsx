@@ -8,6 +8,7 @@ import { IRecipe } from "../../models/IRecipe.ts";
 import { useSearchParams } from "react-router-dom";
 import SearchComponent from "../SearchComponent/SearchComponent.tsx";
 import { userSliceActions } from "../../redux/slices/userSlice/userSlice.ts";
+import './StyleForRecipesComponent.css'
 
 const RecipesComponent = () => {
     const recipeSliceState = useAppSelector((state) => state.recipePart);
@@ -19,7 +20,7 @@ const RecipesComponent = () => {
 
     const skip = Number(searchParams.get("skip")) || 0;
     const limit = Number(searchParams.get("limit")) || 10;
-    const tag = searchParams.get("tag") || ""; // Отримуємо параметр тегу з URL
+    const tag = searchParams.get("tag") || "";
 
     useEffect(() => {
         if (!searchTerm && !tag) {
@@ -60,13 +61,13 @@ const RecipesComponent = () => {
         } finally {
             setIsSearching(false);
         }
-    }, [dispatch, skip, limit, searchTerm, tag]); // Додаємо searchTerm і tag
+    }, [dispatch, skip, limit, searchTerm, tag]);
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await fetchRecipes(searchTerm, tag);  // Передаємо як tag, так і searchTerm
+                await fetchRecipes(searchTerm, tag);
             } catch (error) {
                 console.error("Помилка при отриманні рецептів:", error);
             }
@@ -76,27 +77,31 @@ const RecipesComponent = () => {
     }, [fetchRecipes, searchTerm, tag, skip, limit]);
 
     return (
-        <div>
-            <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Пошук рецепта за назвою або ID..." />
-            {isSearching ? (
-                <p>Завантаження...</p>
-            ) : foundRecipe ? (
-                <RecipeComponent recipe={foundRecipe} key={foundRecipe.id} />
-            ) : recipeSliceState.recipesByTag?.length ? (
-                <>
-                    {recipeSliceState.recipesByTag.map((recipe) => (
-                        <RecipeComponent recipe={recipe} key={recipe.id} />
-                    ))}
-                    <Pagination total={recipeSliceState.total} limit={limit} />
-                </>
-            ) : (
-                <>
-                    {recipeSliceState.recipes.map((recipe) => (
-                        <RecipeComponent recipe={recipe} key={recipe.id} />
-                    ))}
-                    <Pagination total={recipeSliceState.total} limit={limit} />
-                </>
-            )}
+        <div className={'RecipesComponent'}>
+            <SearchComponent onSearch={(query) => setSearchTerm(query)} placeholder="Search for a recipe by name or ID..." />
+            <div className={'CartsOdRecipes'}>
+                {isSearching ? (
+                    <p>Loading...</p>
+                ) : foundRecipe ? (
+                    <RecipeComponent recipe={foundRecipe} key={foundRecipe.id} />
+                ) : recipeSliceState.recipesByTag?.length ? (
+                    <>
+                        {recipeSliceState.recipesByTag.map((recipe) => (
+                            <RecipeComponent recipe={recipe} key={recipe.id} />
+                        ))}
+                        <Pagination total={recipeSliceState.total} limit={limit} />
+                    </>
+                ) : recipeSliceState.recipes.length ? (
+                    <>
+                        {recipeSliceState.recipes.map((recipe) => (
+                            <RecipeComponent recipe={recipe} key={recipe.id} />
+                        ))}
+                        <Pagination total={recipeSliceState.total} limit={limit} />
+                    </>
+                ) : (
+                    <p>There is no such recipe.</p>
+                )}
+            </div>
         </div>
     );
 };

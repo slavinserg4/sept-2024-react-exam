@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
-
+import './StyleForLoginMenu.css'
 const LoginMenu = () => {
     return (
-        <div>
-            <Link to={"/login"}>to login menu</Link>
+        <div className={'LoginMenuDiv'}>
+            <Link className={'Link'} to={"/login"}>Click this message to login</Link>
         </div>
     );
 };

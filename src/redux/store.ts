@@ -4,7 +4,6 @@ import {recipeSlice} from "./slices/recipeSlice/recipeSlice.ts";
 import {loginSlice} from "./slices/loginSlice/loginSlice.ts";
 
 
-
 export const store = configureStore({
     reducer: {
         userPart: userSlice.reducer,

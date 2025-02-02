@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import './StyleForPagination.css'
 
 interface PaginationProps {
     total: number;
@@ -24,15 +25,15 @@ const Pagination = ({ total, limit }: PaginationProps) => {
 
 
     return (
-        <div>
-            <button disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)}>
+        <div className={'Pagination'}>
+            <button className={'ButtonsForPagination'} disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)}>
                 Prev
             </button>
             <span>
                 {" "}
                 Page {currentPage} of {totalPages}{" "}
             </span>
-            <button disabled={currentPage === totalPages} onClick={() => goToPage(currentPage + 1)}>
+            <button className={'ButtonsForPagination'} disabled={currentPage === totalPages} onClick={() => goToPage(currentPage + 1)}>
                 Next
             </button>
         </div>

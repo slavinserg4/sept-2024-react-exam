@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.LoginMenuDiv{
+    margin-left: 50px;
+    margin-bottom: -50px;
+    height: 70px;
+    display: flex;
+}
+.Link{
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", serif;
+    font-size: 16px;
+    margin-top: 27px;
+}

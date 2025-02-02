@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.MainFormDiv{
+    font-family: "Inter", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: slategray;
+    flex-direction: column;
+    height: 450px;
+    width: 350px;
+    border-radius: 13px;
+    box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+}
+.Form{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 70px;
+}
+.FormInputUsername{
+    width: 250px;
+    height: 27px;
+    border-radius: 10px;
+    border: none;
+}
+.FormInputPassword{
+    width: 250px;
+    height: 27px;
+    border-radius: 10px;
+    border: none;
+}
+.FormInputUsername:focus{
+    outline: none;
+}
+.FormInputPassword:focus{
+    outline: none;
+}
+.Enter{
+    margin-bottom: 5px;
+}
+.ButtonForForm{
+    font-family: "Inter", serif;
+    margin-left: 60px;
+    margin-top: 14px;
+    height: 40px;
+    width: 140px;
+    border-radius: 10px;
+    border: none;
+    transition: 300ms;
+}
+.ButtonForForm:hover{
+    background-color: darkslategrey;
+    transition: 300ms;
+    color: white;
+}
+.error{
+    margin-top: -35px;
+}
+.HeaderForForm{
+    margin-top: -40px;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+.hrForForm{
+    margin-top: -18px;
+    width: 310px;
+
+}

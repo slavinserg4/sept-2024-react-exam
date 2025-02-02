@@ -5,6 +5,7 @@ import { recipeSliceActions } from "../../redux/slices/recipeSlice/recipeSlice.t
 import { Link } from "react-router-dom";
 import { mergeRecipesWithUsers } from "../../helpers/helper.ts";
 import { IRecipe } from "../../models/IRecipe.ts";
+import './StyleForUserRecipes.css'
 
 interface Props {
     userId: number;
@@ -45,21 +46,21 @@ const UserRecipes: FC<Props> = ({ userId }) => {
 
     return (
         <div>
-            <h2>Рецепти користувача</h2>
+            <h2>Recipes of this user</h2>
             {loadedAll ? (
                 userRecipes.length > 0 ? (
                     <ul>
                         {userRecipes.map(recipe => (
                             <li key={recipe.id}>
-                                <Link to={`/recipedetails/${recipe.id}`}>{recipe.name}</Link>
+                                <Link className={'UserRecipesLink'} to={`/recipedetails/${recipe.id}`}>{recipe.name}</Link>
                             </li>
                         ))}
                     </ul>
                 ) : (
-                    <h3>В цього користувача немає рецептів.</h3>
+                    <h3>This user has no recipes.</h3>
                 )
             ) : (
-                <p>Завантаження...</p>
+                <p>Loading...</p>
             )}
         </div>
     );

@@ -1,0 +1,35 @@
+.Menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ButtonForLogOut{
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: none;
+    transition: 300ms;
+    margin-left: 1560px;
+    margin-right: 20px;
+    background-color: lightslategrey;
+}
+.ButtonForLogOut:hover{
+    background-color: darkslategrey;
+    transition: 300ms;
+    color: white;
+
+}
+.LinkForAllRecipes{
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", serif;
+    font-size: 16px;
+    margin-right: 20px;
+}
+.LinkForAllUsers{
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", serif;
+    font-size: 16px;
+    margin-right: -500px;
+}

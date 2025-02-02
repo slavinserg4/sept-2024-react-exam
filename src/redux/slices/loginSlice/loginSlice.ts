@@ -16,14 +16,13 @@ const loginInitState: LoginSliceType = {
 }
 
 type userLoginType = {
-    expiresInMins:number
     username:string,
     password:string
 }
 
-export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({username, password,expiresInMins}:userLoginType,thunkAPI) => {
+export const userLogin = createAsyncThunk('loginSlice/userLogin', async ({username, password}:userLoginType,thunkAPI) => {
     try {
-        const loggedInUser = await loginUser({username, password,expiresInMins});
+        const loggedInUser = await loginUser({username, password});
         return thunkAPI.fulfillWithValue(loggedInUser);
     } catch (e: unknown) {
         if (e instanceof Error) {
